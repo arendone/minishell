@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_env_node.c                                     :+:      :+:    :+:   */
+/*   copy_env_list.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpfuhl <jpfuhl@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 15:37:04 by jpfuhl            #+#    #+#             */
-/*   Updated: 2022/05/10 20:53:35 by jpfuhl           ###   ########.fr       */
+/*   Created: 2022/05/10 17:47:31 by jpfuhl            #+#    #+#             */
+/*   Updated: 2022/05/19 16:27:57 by jpfuhl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/env.h"
 
-void	add_env_node(t_env *head, char **key_value_pair)
+t_env	*copy_env_list(t_env *head)
 {
+	t_env	*head_copy;
+	t_env	*copy;
 	t_env	*node;
 
-	node = get_last_env_node(head);
-	node->next = create_env_node();
-	if (node->next)
+	head_copy = create_env_node();
+	if (!head_copy)
+		return (NULL);
+	copy = head_copy;
+	node = head;
+	while (node)
 	{
-		fill_env_node(node->next, key_value_pair);
-		node->next->prev = node;
+		copy_env_node(copy, node);
+		if (node->next)
+		{
+			copy->next = create_env_node();
+			if (!copy->next)
+				break ;
+			copy->next->prev = copy;
+			copy = copy->next;
+		}
+		node = node->next;
 	}
+	return (head_copy);
 }

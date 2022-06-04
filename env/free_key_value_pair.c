@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_env_node.c                                     :+:      :+:    :+:   */
+/*   free_key_value_pair.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpfuhl <jpfuhl@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 15:37:04 by jpfuhl            #+#    #+#             */
-/*   Updated: 2022/05/10 20:53:35 by jpfuhl           ###   ########.fr       */
+/*   Created: 2022/05/10 20:36:02 by jpfuhl            #+#    #+#             */
+/*   Updated: 2022/05/10 20:39:15 by jpfuhl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/env.h"
 
-void	add_env_node(t_env *head, char **key_value_pair)
+void	free_key_value_pair(char **key_value_pair)
 {
-	t_env	*node;
+	int	i;
 
-	node = get_last_env_node(head);
-	node->next = create_env_node();
-	if (node->next)
+	i = 0;
+	while (key_value_pair[i])
 	{
-		fill_env_node(node->next, key_value_pair);
-		node->next->prev = node;
+		free(key_value_pair[i]);
+		i++;
 	}
+	free(key_value_pair);
 }

@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_env_node.c                                     :+:      :+:    :+:   */
+/*   fill_env_node.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpfuhl <jpfuhl@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/10 15:37:04 by jpfuhl            #+#    #+#             */
-/*   Updated: 2022/05/10 20:53:35 by jpfuhl           ###   ########.fr       */
+/*   Created: 2022/05/10 17:40:47 by jpfuhl            #+#    #+#             */
+/*   Updated: 2022/05/10 20:41:19 by jpfuhl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header/env.h"
 
-void	add_env_node(t_env *head, char **key_value_pair)
+void	fill_env_node(t_env *node, char **key_value_pair)
 {
-	t_env	*node;
-
-	node = get_last_env_node(head);
-	node->next = create_env_node();
-	if (node->next)
-	{
-		fill_env_node(node->next, key_value_pair);
-		node->next->prev = node;
-	}
+	if (key_value_pair[0])
+		node->key = ft_strdup(key_value_pair[0]);
+	if (key_value_pair[1])
+		node->equal_sign = true;
+	if (key_value_pair[2])
+		node->value = ft_strdup(key_value_pair[2]);
 }
